@@ -10,7 +10,7 @@ const { body, validationResult } = require('express-validator');
 const fs = require('fs');
 const errorHandler = require("./middleware/errorHandler");
 const logger = require("./utils/logger");
-
+const winston = require('winston');
 const app = express();
 app.use(express.json());
 
@@ -48,7 +48,7 @@ const limiter = rateLimit({
 });
 
 app.use(limiter);
-
+app.use(express.json())
 
 if (!process.env.JWT_SECRET) {
   console.warn('WARNING: JWT_SECRET is not defined. Using a default secret.');
@@ -123,8 +123,8 @@ if (!MONGO_URI) {
   console.error("❌ MONGO_URI is not defined. Set it in your environment variables.");
   process.exit(1); // Exit if the database URI is missing
 }
-mongoose.connect(MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true })
-.then(() => logger.info("✅ Connected to MongoDB"))
+mongoose.connect(MONGO_URI)
+  .then(() => logger.info("✅ Connected to MongoDB"))
   .catch((err) => {
     logger.error("❌ MongoDB connection error:", err);
     process.exit(1);
