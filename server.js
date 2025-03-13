@@ -15,20 +15,29 @@ const app = express();
 app.use(express.json());
 
 // Define allowed origins for CORS
-const allowedOrigins = ['http://localhost:3000', 'http://127.0.0.1:5500'];
+const allowedOrigins = ['http://localhost:3000', 'http://127.0.0.1:5500' ,'https://pompateh.github.io/news_front/'];
 app.use(cors({
   origin: (origin, callback) => {
-    if (!origin || allowedOrigins.includes(origin)) {
-      return callback(null, true);
+    if (!origin || allowedOrigins.some(allowedOrigin => origin.startsWith(allowedOrigin))) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
     }
-    return callback(new Error('Not allowed by CORS'));
   },
   credentials: true,
 }));
 
 
 if (process.env.NODE_ENV === 'production') {
-  app.use(helmet());
+  app.use(helmet({
+    contentSecurityPolicy: {
+      directives: {
+        ...helmet.contentSecurityPolicy.getDefaultDirectives(),
+        "img-src": ["'self'", "data:", "https:"],
+      },
+    },
+    crossOriginResourcePolicy: { policy: "cross-origin" },
+  }));
 } else {
   // Looser Helmet settings for development
   app.use(helmet({
@@ -154,20 +163,21 @@ app.use(errorHandler);
 
 app.use('/uploads', express.static(path.join(__dirname, 'public/uploads'), {
   setHeaders: (res, filePath, stat) => {
-    res.set('Access-Control-Allow-Origin', allowedOrigins.join(', '));
+    res.set('Access-Control-Allow-Origin', '*');
     res.set('Access-Control-Allow-Methods', 'GET');
     res.set('Access-Control-Allow-Headers', 'Content-Type');
-    res.set('Access-Control-Allow-Credentials', 'true');
+    res.set('Cross-Origin-Resource-Policy', 'cross-origin');
   }
 }));
 
-app.use((req, res, next) => {
-  res.header('Access-Control-Allow-Origin', allowedOrigins.join(', '));
-  res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
-  res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization');
-  res.header('Access-Control-Allow-Credentials', 'true');
-  next();
-});
+app.use('/assets', express.static(path.join(__dirname, 'public/assets'), {
+  setHeaders: (res, filePath, stat) => {
+    res.set('Access-Control-Allow-Origin', '*');
+    res.set('Access-Control-Allow-Methods', 'GET');
+    res.set('Access-Control-Allow-Headers', 'Content-Type');
+    res.set('Cross-Origin-Resource-Policy', 'cross-origin');
+  }
+}));
 
 // Global error handling
 process.on('unhandledRejection', (reason, promise) => {
