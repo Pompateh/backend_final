@@ -4,7 +4,7 @@ const cors = require("cors");
 require("dotenv").config();
 const multer = require('multer');
 const path = require('path');
-//const rateLimit = require('express-rate-limit');
+const rateLimit = require('express-rate-limit');
 const helmet = require('helmet');
 const { body, validationResult } = require('express-validator');
 const fs = require('fs');
@@ -38,6 +38,11 @@ if (process.env.NODE_ENV === 'production') {
 }
 
 app.use(errorHandler);
+
+app.set('trust proxy', 1);
+app.get('/', (req, res) => {
+  res.send('Welcome to the Newstalgia Backend API');
+});
 
 const rateLimit = require('express-rate-limit');
 
