@@ -37,14 +37,11 @@ if (process.env.NODE_ENV === 'production') {
   }));
 }
 
-app.use(errorHandler);
-
-app.set('trust proxy', 1);
 app.get('/', (req, res) => {
   res.send('Welcome to the Newstalgia Backend API');
 });
 
-const rateLimit = require('express-rate-limit');
+app.set('trust proxy', 1);
 
 const limiter = rateLimit({
   windowMs: 15 * 60 * 1000, // 15 minutes
@@ -152,6 +149,8 @@ app.use("/api/products", productRoutes);
 app.use("/api/typefaces", typefaceRoutes);
 app.use(express.static("public"));
 app.use("/api/cart", cartRoutes);
+
+app.use(errorHandler);
 
 app.use('/uploads', express.static(path.join(__dirname, 'public/uploads'), {
   setHeaders: (res, filePath, stat) => {
