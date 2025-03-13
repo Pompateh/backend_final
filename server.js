@@ -8,6 +8,8 @@ const path = require('path');
 const helmet = require('helmet');
 const { body, validationResult } = require('express-validator');
 const fs = require('fs');
+const errorHandler = require("./middleware/errorHandler");
+const logger = require("./utils/logger");
 
 const app = express();
 app.use(express.json());
@@ -15,17 +17,15 @@ app.use(express.json());
 // Define allowed origins for CORS
 const allowedOrigins = ['http://localhost:3000', 'http://127.0.0.1:5500'];
 app.use(cors({
-  origin: function (origin, callback) {
-    // Allow requests with no origin (like mobile apps or curl requests)
-    if (!origin) return callback(null, true);
-    if (allowedOrigins.indexOf(origin) !== -1) {
+  origin: (origin, callback) => {
+    if (!origin || allowedOrigins.includes(origin)) {
       return callback(null, true);
-    } else {
-      return callback(new Error('Not allowed by CORS'));
     }
+    return callback(new Error('Not allowed by CORS'));
   },
-  credentials: true
+  credentials: true,
 }));
+
 
 if (process.env.NODE_ENV === 'production') {
   app.use(helmet());
@@ -37,16 +37,22 @@ if (process.env.NODE_ENV === 'production') {
   }));
 }
 
-// Apply rate limiting
-//const limiter = rateLimit({
-//  windowMs: 15 * 60 * 1000, // 15 minutes
- // max: 100 // limit each IP to 100 requests per windowMs
-//});
-//app.use(limiter);
+app.use(errorHandler);
+
+const rateLimit = require('express-rate-limit');
+
+const limiter = rateLimit({
+  windowMs: 15 * 60 * 1000, // 15 minutes
+  max: 100, // Limit each IP to 100 requests per windowMs
+  message: "Too many requests from this IP, please try again later."
+});
+
+app.use(limiter);
+
 
 if (!process.env.JWT_SECRET) {
-  console.error('FATAL ERROR: JWT_SECRET is not defined.');
-  process.exit(1);
+  console.warn('WARNING: JWT_SECRET is not defined. Using a default secret.');
+  process.env.JWT_SECRET = 'default_secret_for_development';
 }
 
 // Ensure the uploads folder exists (create it if missing)
@@ -112,10 +118,17 @@ app.post('/api/example', [
 });
 
 // === MONGODB CONNECTION ===
-const MONGO_URI = process.env.MONGO_URI
-  .connect(MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true })
-  .then(() => console.log("✅ Connected to MongoDB"))
-  .catch((err) => console.error("❌ MongoDB connection error:", err));
+const MONGO_URI = process.env.MONGO_URI;
+if (!MONGO_URI) {
+  console.error("❌ MONGO_URI is not defined. Set it in your environment variables.");
+  process.exit(1); // Exit if the database URI is missing
+}
+mongoose.connect(MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true })
+.then(() => logger.info("✅ Connected to MongoDB"))
+  .catch((err) => {
+    logger.error("❌ MongoDB connection error:", err);
+    process.exit(1);
+  });
 
 // Start the server
 const PORT = process.env.PORT || 5000;
@@ -150,4 +163,10 @@ app.use((req, res, next) => {
   res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization');
   res.header('Access-Control-Allow-Credentials', 'true');
   next();
+});
+
+// Global error handling
+process.on('unhandledRejection', (reason, promise) => {
+  console.log('Unhandled Rejection at:', promise, 'reason:', reason);
+  // Application specific logging, throwing an error, or other logic here
 });
