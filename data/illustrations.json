@@ -1,0 +1,80 @@
+[
+    {
+        "id": 1,
+        "name": "Retro Cityscape",
+        "description": "A vibrant illustration of a 1980s cityscape with neon lights.",
+        "image": "./assets/image/NEWSTALGIA WEB-03.png",
+        "image1": "./assets/image/NEWSTALGIA WEB-04.png",
+        "image2": "./assets/image/NEWSTALGIA WEB-04.png",
+        "image3": "./assets/image/NEWSTALGIA WEB-04.png",
+        "story": "This is the story of the illustration. It can be a longer text describing the background, inspiration, or meaning behind the illustration.",
+        "artist": "Jane Doe",
+        "year": 2023,
+        "style": "Digital Art"
+    },
+    {
+        "id": 2,
+        "name": "Vintage Comic Hero",
+        "description": "An illustration inspired by classic comic book superheroes.",
+        "image": "./assets/illustrations/vintage-comic-hero.jpg",
+        "image1": "./assets/illustrations/vintage-comic-hero-1.jpg",
+        "image2": "./assets/illustrations/vintage-comic-hero-2.jpg",
+        "image3": "./assets/illustrations/vintage-comic-hero-3.jpg",
+        "story": "This vintage comic hero illustration pays homage to the golden age of comics, capturing the bold colors and dynamic poses of classic superheroes.",
+        "artist": "John Smith",
+        "year": 2021,
+        "style": "Hand-drawn"
+    },
+    {
+        "id": 3,
+        "name": "Pop Art Portrait",
+        "description": "A colorful pop art style portrait reminiscent of the 1960s.",
+        "image": "./assets/illustrations/pop-art-portrait.jpg",
+        "image1": "./assets/illustrations/pop-art-portrait-1.jpg",
+        "image2": "./assets/illustrations/pop-art-portrait-2.jpg",
+        "image3": "./assets/illustrations/pop-art-portrait-3.jpg",
+        "story": "This pop art portrait draws inspiration from the iconic works of Andy Warhol, celebrating the vibrant colors and bold patterns of the 1960s pop art movement.",
+        "artist": "Alice Johnson",
+        "year": 2023,
+        "style": "Digital Pop Art"
+    },
+    {
+        "id": 4,
+        "name": "Retro Travel Poster",
+        "description": "A nostalgic travel poster inspired by mid-century design.",
+        "image": "./assets/illustrations/retro-travel-poster.jpg",
+        "image1": "./assets/illustrations/retro-travel-poster-1.jpg",
+        "image2": "./assets/illustrations/retro-travel-poster-2.jpg",
+        "image3": "./assets/illustrations/retro-travel-poster-3.jpg",
+        "story": "This retro travel poster captures the essence of mid-century wanderlust, evoking memories of glamorous jet-setting and exotic destinations.",
+        "artist": "Bob Williams",
+        "year": 2022,
+        "style": "Vintage Poster"
+    },
+    {
+        "id": 5,
+        "name": "Psychedelic Album Art",
+        "description": "A trippy, colorful illustration reminiscent of 1960s album covers.",
+        "image": "./assets/illustrations/psychedelic-album-art.jpg",
+        "image1": "./assets/illustrations/psychedelic-album-art-1.jpg",
+        "image2": "./assets/illustrations/psychedelic-album-art-2.jpg",
+        "image3": "./assets/illustrations/psychedelic-album-art-3.jpg",
+        "story": "This psychedelic album art transports viewers back to the mind-bending visuals of the 1960s, with swirling patterns and vibrant colors that seem to pulse with the music.",
+        "artist": "Grace Lee",
+        "year": 2023,
+        "style": "Psychedelic Art"
+    },
+    {
+        "id": 6,
+        "name": "Art Deco Cityscape",
+        "description": "An elegant Art Deco style illustration of a modern city.",
+        "image": "./assets/illustrations/art-deco-cityscape.jpg",
+        "image1": "./assets/illustrations/art-deco-cityscape-1.jpg",
+        "image2": "./assets/illustrations/art-deco-cityscape-2.jpg",
+        "image3": "./assets/illustrations/art-deco-cityscape-3.jpg",
+        "story": "This Art Deco cityscape blends the sleek lines and geometric patterns of the 1920s and 30s with a modern urban landscape, creating a timeless vision of elegance and progress.",
+        "artist": "David Brown",
+        "year": 2021,
+        "style": "Art Deco"
+    }
+]

@@ -1,0 +1,32 @@
+[
+  {
+    "id": "1",
+    "name": "Fratelli Chiaverini",
+    "image": "./assets/image/NEWSTALGIA WEB-05.png",
+    "story": "This is the story of the Fratelli Chiaverini project...",
+    "gridImage1": "./assets/image/NEWSTALGIA WEB-04.png",
+    "gridImage2": "./assets/image/NEWSTALGIA WEB-05.png",
+    "client": "Fratelli Chiaverini",
+    "publishedDate": "January 1, 2023"
+  },
+  {
+    "id": "2",
+    "name": "Nanu's Stylish",
+    "image": "./assets/image/NEWSTALGIA WEB-03.png",
+    "story": "This is the story of the Nanu's Stylish project...",
+    "gridImage1": "./assets/image/nanu_grid1.jpg",
+    "gridImage2": "./assets/image/nanu_grid2.jpg",
+    "client": "Nanu's Stylish",
+    "publishedDate": "February 15, 2023"
+  },
+  {
+    "id": "3",
+    "name": "Nanu's212 Stylish",
+    "image": "./assets/image/NEWSTALGIA WEB-04.png",
+    "story": "This is the story of the Nanu's Stylish project...",
+    "gridImage1": "./assets/image/nanu_grid1.jpg",
+    "gridImage2": "./assets/image/nanu_grid2.jpg",
+    "client": "Nanu's123 Stylish",
+    "publishedDate": "Februa123ry 15, 2023"
+  }
+]
