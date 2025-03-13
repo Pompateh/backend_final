@@ -1,0 +1,1 @@
+heroku config:set "MONGO_URI=mongodb+srv://heetranwork:31122000h@cluster0.x8whi.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
